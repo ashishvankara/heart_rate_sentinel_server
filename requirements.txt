@@ -1,0 +1,17 @@
+pytest
+pytest-cov
+pytest-pep8
+pytest-pudb
+numpy
+pandas
+sphinx
+scipy
+ipython
+jupyter
+matplotlib
+scikit-image
+scikit-learn
+pudb
+flask
+gunicorn
+pymodm
