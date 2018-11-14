@@ -43,6 +43,9 @@ def istachycardic(user_age, hr):
     else:
         return False
 
+def averageHR(hr):
+    return sum(hr)/float(len(hr))
+
 app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
@@ -70,6 +73,41 @@ def getData():
                   }
     return jsonify(dict_array)
 
+@app.route("/status/<patient_id>", methods=["GET"])
+def getStatus(patient_id):
+    """
+    Returns the data dictionary below to the caller as JSON
+    """
+    u = User.objects.raw({"_id": patient_id}).first()
+    most_recent_hr = u.heart_rate[-1]
+    most_recent_time = u.heart_rate_timestamp[-1]
+    tachy = istachycardic(u.user_age, most_recent_hr)
+    ans = "Patient is {} His/Her heart rate is {} based on data from {}"
+    if tachy:
+        return ans.format("tachycardic!", most_recent_hr, most_recent_time)
+    else:
+        return ans.format("not tachycardic.", most_recent_hr, most_recent_time)
+
+@app.route("/heart_rate/<patient_id>", methods=["GET"])
+def getHR(patient_id):
+    """
+    Returns the data dictionary below to the caller as JSON
+    """
+    u = User.objects.raw({"_id": patient_id}).first()
+    total_stored_hr_data = u.heart_rate[1:]
+    return str(total_stored_hr_data)
+
+@app.route("/heart_rate/average/<patient_id>", methods=["GET"])
+def getavgHR(patient_id):
+    """
+    Returns the data dictionary below to the caller as JSON
+    """
+    u = User.objects.raw({"_id": patient_id}).first()
+    total_stored_hr_data = u.heart_rate[1:]
+    avghr = averageHR(total_stored_hr_data)
+    ans =" The patient's average heart over all stored measurements is {}."
+    return ans.format(avghr)
+
 @app.route("/heart_rate", methods=["POST"])
 def addHr():
     data_in = request.get_json()
@@ -92,6 +130,8 @@ def addpatient():
              )
     u.save()
     return u.mrn
+
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

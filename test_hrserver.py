@@ -9,9 +9,17 @@ import pytest
     (20, 90, False)
 ])
 def test_istachycardic(user_age, hr, expected):
-    """" Tests tachycardic
+    """ Tests tachycardic
     """
     from hrserver import istachycardic
     a = istachycardic(user_age, hr)
     assert a == expected
 
+def test_averageHR():
+    """ Tests avgHR calculation
+    """
+    from hrserver import averageHR
+    import numpy as np
+    a = np.arange(1, 15)
+    calculated_avg = averageHR(a)
+    assert pytest.approx(calculated_avg) == a.mean()
