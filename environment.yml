@@ -1,0 +1,17 @@
+name: sentinel_environment
+dependencies:
+  - python=3.6
+  - pytest
+  - pytest-pep8
+  - pytest-cov
+  - numpy
+  - sphinx
+  - pandas
+  - flask
+  - requests
+  - pip
+  - pip:
+    - pymodm
+    - gunicorn
+
+
