@@ -11,6 +11,38 @@ class User(MongoModel):
     heart_rate = fields.ListField()
     heart_rate_timestamp = fields.ListField()
 
+def istachycardic(user_age, hr):
+
+    if user_age > 5475/365:
+        tachy_threshold = 100
+    elif user_age > 4015/365:
+        tachy_threshold = 119
+    elif user_age > 2555/365:
+        tachy_threshold = 130
+    elif user_age > 1460/365:
+        tachy_threshold = 133
+    elif user_age > 730/365:
+        tachy_threshold = 137
+    elif user_age > 335/365:
+        tachy_threshold = 151
+    elif user_age > 152/365:
+        tachy_threshold = 169
+    elif user_age > 61/365:
+        tachy_threshold = 186
+    elif user_age > 21/365:
+        tachy_threshold = 179
+    elif user_age > 6/365:
+        tachy_threshold = 182
+    elif user_age > 2/365:
+        tachy_threshold = 166
+    elif user_age > 0:
+        tachy_threshold = 159
+
+    if hr > tachy_threshold:
+        return True
+    else:
+        return False
+
 app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
