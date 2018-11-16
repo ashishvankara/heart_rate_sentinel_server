@@ -1,0 +1,472 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome to Heart_Rate_Sentinel’s documentation! &#8212; Heart_Rate_Sentinel 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-heart-rate-sentinel-s-documentation">
+<h1>Welcome to Heart_Rate_Sentinel’s documentation!<a class="headerlink" href="#welcome-to-heart-rate-sentinel-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="function">
+<dt id="hrserver.User">
+<code class="descclassname">hrserver.</code><code class="descname">User</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class initializes the stored data fields for the heart rate sentinel
+Mongo database.</p>
+<dl class="attribute">
+<dt id="hrserver.mrn">
+<code class="descclassname">hrserver.</code><code class="descname">mrn</code><a class="headerlink" href="#hrserver.mrn" title="Permalink to this definition">¶</a></dt>
+<dd><p>specifies patient MRN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hrserver.attending_email">
+<code class="descclassname">hrserver.</code><code class="descname">attending_email</code><a class="headerlink" href="#hrserver.attending_email" title="Permalink to this definition">¶</a></dt>
+<dd><p>specifies patient’s attending physician’s email.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">email</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hrserver.user_age">
+<code class="descclassname">hrserver.</code><code class="descname">user_age</code><a class="headerlink" href="#hrserver.user_age" title="Permalink to this definition">¶</a></dt>
+<dd><p>specifies patient’s age in years.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hrserver.heart_rate">
+<code class="descclassname">hrserver.</code><code class="descname">heart_rate</code><a class="headerlink" href="#hrserver.heart_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>contains all the stored heart rate data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hrserver.heart_rate_timestamp">
+<code class="descclassname">hrserver.</code><code class="descname">heart_rate_timestamp</code><a class="headerlink" href="#hrserver.heart_rate_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>contains associated timestamps of heart_rate data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.greeting">
+<code class="descclassname">hrserver.</code><code class="descname">greeting</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.greeting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Welcomes user to heart rate sentinel</p>
+<p>This function returns the following string: “Welcome to the heart rate sentinel”</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">“Welcome to the heart rate sentinel”</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">welcome (string)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.getData">
+<code class="descclassname">hrserver.</code><code class="descname">getData</code><span class="sig-paren">(</span><em>patient_id</em><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.getData" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns all the stored information for a patient as a JSON dictionary</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>patient_id</strong> (<em>string</em>) – string specifying patient MRN.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary of stored information for specified patient</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict_array (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.getStatus">
+<code class="descclassname">hrserver.</code><code class="descname">getStatus</code><span class="sig-paren">(</span><em>patient_id</em><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.getStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns whether the specified patient is currently tachycardic based on previously available
+heart rate data, as well as the timestamp of the most recent heart rate. Furthermore, it also sends an
+email to the attending physician if the patient is tachycardic.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>patient_id</strong> (<em>string</em>) – specifies patient MRN.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">specifies if patient is tachycardic</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ans (string)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.getHR">
+<code class="descclassname">hrserver.</code><code class="descname">getHR</code><span class="sig-paren">(</span><em>patient_id</em><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.getHR" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns all the previously stored heart rate data as a string
+for a specified patient.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>patient_id</strong> (<em>string</em>) – specifies patient MRN.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">stored heart rate data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">total_stored_hr_data (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.getavgHR">
+<code class="descclassname">hrserver.</code><code class="descname">getavgHR</code><span class="sig-paren">(</span><em>patient_id</em><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.getavgHR" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns an average of all the stored heart rate
+data for a specified patient</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>patient_id</strong> (<em>string</em>) – specifies patient MRN.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sentence that informs user of patients average heart rate</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ans (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.addHr">
+<code class="descclassname">hrserver.</code><code class="descname">addHr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.addHr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Posts heart rate data to database and checks for tachycardia</p>
+<p>This function receives a JSON request and posts the new data to the specified patient’s
+heart rate data. It also checks for tachycardia, and emails the physician if
+tachycardia is detected. The function returns a string explaining the most recent
+heart rate status of the patient. Furthermore, it removes the initialized heart rate value
+(0) and associated time stamp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>patient_id</strong> (<em>string</em>) – specifies patient MRN (received through JSON request).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sentence that informs user of patients recent heart rate status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">status (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.addpatient">
+<code class="descclassname">hrserver.</code><code class="descname">addpatient</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.addpatient" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function receives a JSON request and initializes the database variables for the new patient.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mrn</strong> (<em>string</em>) – specifies patient MRN.</li>
+<li><strong>attending_email</strong> (<em>email</em>) – specifies patient’s attending physician’s email.</li>
+<li><strong>user_age</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – specifies patient’s age in years.</li>
+<li><strong>heart_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – stored heart rate data</li>
+<li><strong>heart_rate_timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – associated timestamps of heart_rate data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">identifies patient. No two patients can have the same MRN.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">u.mrn (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.intervalaverage">
+<code class="descclassname">hrserver.</code><code class="descname">intervalaverage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.intervalaverage" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates the average of the stored heart rates after a
+specified time point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>patient_id</strong> (<em>string</em>) – specifies patient MRN (received through JSON request).</li>
+<li><strong>heart_rate_average_since</strong> (<em>string</em>) – time string to specify time point for interval average.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">identifies patient. No two patients can have the same MRN.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">u.mrn (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.email">
+<code class="descclassname">hrserver.</code><code class="descname">email</code><span class="sig-paren">(</span><em>from_email_string</em>, <em>to_email_string</em>, <em>subject</em>, <em>content_string</em><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.email" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function utilizes the SendGrid API to send an email.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>from_email_string</strong> (<em>string</em>) – specifies the email address the message will be sent from.</li>
+<li><strong>to_email_string</strong> (<em>string</em>) – specifies the email address the message will be sent to.</li>
+<li><strong>subject</strong> (<em>string</em>) – specifies subject of the email</li>
+<li><strong>content_string</strong> (<em>string</em>) – specifies the content of the email</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">code to inform user of email status</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">response.status_code (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.recondition">
+<code class="descclassname">hrserver.</code><code class="descname">recondition</code><span class="sig-paren">(</span><em>heart_rate_average_since</em>, <em>heart_rate_timestamp</em>, <em>heart_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.recondition" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function compares the specified time point to the timestamps of the
+heart rate data and returns a heart rate vector containing data for the
+interval specified.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>heart_rate</strong> (<em>array</em>) – numpy array of heart rate data.</li>
+<li><strong>heart_rate_average_since</strong> (<em>datetime</em>) – datetime object for specified interval</li>
+<li><strong>heart_rate_timestamp</strong> (<em>array</em>) – numpy array of datetimes corresponding to heart rate data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of hr data in specified interval</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">reconditioned_hr_data (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.istachycardic">
+<code class="descclassname">hrserver.</code><code class="descname">istachycardic</code><span class="sig-paren">(</span><em>user_age</em>, <em>hr</em><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.istachycardic" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function determines if a patient of a specified age is tachycardic .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>user_age</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – patient age in years.</li>
+<li><strong>hr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – heart rate in beats per minute.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">specifies whether patient is tachycardic</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tachy (boolean)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hrserver.averageHR">
+<code class="descclassname">hrserver.</code><code class="descname">averageHR</code><span class="sig-paren">(</span><em>hr</em><span class="sig-paren">)</span><a class="headerlink" href="#hrserver.averageHR" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates the average of a list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>hr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – list of hr data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">average heart rate</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">avg (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_hrserver.test_istachycardic">
+<code class="descclassname">test_hrserver.</code><code class="descname">test_istachycardic</code><span class="sig-paren">(</span><em>user_age</em>, <em>hr</em>, <em>expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_hrserver.test_istachycardic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests istachycardic()</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_hrserver.test_averageHR">
+<code class="descclassname">test_hrserver.</code><code class="descname">test_averageHR</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_hrserver.test_averageHR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests averageHR() calculations</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_hrserver.test_recondition">
+<code class="descclassname">test_hrserver.</code><code class="descname">test_recondition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_hrserver.test_recondition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests recondition()</p>
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Heart_Rate_Sentinel</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Ashish Vankara.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -9,16 +9,17 @@ logging.basicConfig(filename='log.txt', level=logging.DEBUG, filemode='w')
 connect("mongodb://av135:Dukebm3^@ds039778.mlab.com:39778/hr_sentinel")
 
 class User(MongoModel):
-    """ This User class initializes the MongoDB database attributes
+    """
 
-    This class specifies the stored data fields for the heart rate sentinel database.
+    This class initializes the stored data fields for the heart rate sentinel
+    Mongo database.
 
     Attributes:
-        mrn (string): string specifying patient MRN.
-        attending_email (email): Specifies patient's attending physician's email.
-        user_age (float): Specifies patient's age in years.
-        heart_rate (list): Contains all the stored heart rate data
-        heart_rate_timestamp (list): Contains associated timestamps of heart_rate data
+        mrn (string): specifies patient MRN.
+        attending_email (email): specifies patient's attending physician's email.
+        user_age (float): specifies patient's age in years.
+        heart_rate (list): contains all the stored heart rate data
+        heart_rate_timestamp (list): contains associated timestamps of heart_rate data
 
     """
 
@@ -36,6 +37,7 @@ def greeting():
     """ Welcomes user to heart rate sentinel
 
     This function returns the following string: "Welcome to the heart rate sentinel"
+
     Returns:
         welcome (string): "Welcome to the heart rate sentinel"
     """
@@ -49,15 +51,14 @@ def greeting():
 
 @app.route("/data/<patient_id>", methods=["GET"])
 def getData(patient_id):
-    """ Returns the data dictionary below to the caller as JSON
-
+    """
     This function returns all the stored information for a patient as a JSON dictionary
 
     Args:
         patient_id (string): string specifying patient MRN.
 
     Returns:
-        dict_array (dict): Dictionary of stored information for specified patient
+        dict_array (dict): dictionary of stored information for specified patient
     """
 
     u = User.objects.raw({"_id": patient_id}).first()
@@ -71,17 +72,16 @@ def getData(patient_id):
 
 @app.route("/status/<patient_id>", methods=["GET"])
 def getStatus(patient_id):
-    """ Returns whether patient is tachycardic based on previously available data
-
+    """
     This function returns whether the specified patient is currently tachycardic based on previously available
-     heart rate data, as well as the timestamp of the most recent heart rate. Furthermore, it also sends an
-     email to the attending physician if the patient is tachycardic.
+    heart rate data, as well as the timestamp of the most recent heart rate. Furthermore, it also sends an
+    email to the attending physician if the patient is tachycardic.
 
     Args:
-        patient_id (string): string specifying patient MRN.
+        patient_id (string): specifies patient MRN.
 
     Returns:
-        ans (string): Specifying if patient is tachycardic
+        ans (string): specifies if patient is tachycardic
     """
 
     u = User.objects.raw({"_id": patient_id}).first()
@@ -101,16 +101,15 @@ def getStatus(patient_id):
 
 @app.route("/heart_rate/<patient_id>", methods=["GET"])
 def getHR(patient_id):
-    """ Returns all the stored heart rate data for a specified patient
-
+    """
     This function returns all the previously stored heart rate data as a string
     for a specified patient.
 
     Args:
-        patient_id (string): string specifying patient MRN.
+        patient_id (string): specifies patient MRN.
 
     Returns:
-        total_stored_hr_data (str): Contains all the stored heart rate data
+        total_stored_hr_data (str): stored heart rate data
     """
 
     u = User.objects.raw({"_id": patient_id}).first()
@@ -120,13 +119,12 @@ def getHR(patient_id):
 
 @app.route("/heart_rate/average/<patient_id>", methods=["GET"])
 def getavgHR(patient_id):
-    """ Returns an average of all the stored heart rate data for a specified patient
-
+    """
     This function returns an average of all the stored heart rate
-     data for a specified patient
+    data for a specified patient
 
     Args:
-        patient_id (string): string specifying patient MRN.
+        patient_id (string): specifies patient MRN.
 
     Returns:
         ans (str): sentence that informs user of patients average heart rate
@@ -144,14 +142,14 @@ def addHr():
     """ Posts heart rate data to database and checks for tachycardia
 
     This function receives a JSON request and posts the new data to the specified patient's
-     heart rate data. It also checks for tachycardia, and emails the physician if
-      tachycardia is detected. The function returns a string explaining the most recent
-       heart rate status of the patient. Furthermore, it removes the initialized heart rate value
-       (0) and associated time stamp.
+    heart rate data. It also checks for tachycardia, and emails the physician if
+    tachycardia is detected. The function returns a string explaining the most recent
+    heart rate status of the patient. Furthermore, it removes the initialized heart rate value
+    (0) and associated time stamp.
 
 
     Args:
-        patient_id (string): string specifying patient MRN (received through JSON request).
+        patient_id (string): specifies patient MRN (received through JSON request).
 
     Returns:
         status (str): sentence that informs user of patients recent heart rate status
@@ -180,16 +178,15 @@ def addHr():
 
 @app.route("/new_patient", methods=["POST"])
 def addpatient():
-    """ Initializes database variables for a new patient.
-
+    """
     This function receives a JSON request and initializes the database variables for the new patient.
 
     Args:
-        mrn (string): string specifying patient MRN.
-        attending_email (email): Specifies patient's attending physician's email.
-        user_age (float): Specifies patient's age in years.
-        heart_rate (list): Contains all the stored heart rate data
-        heart_rate_timestamp (list): Contains associated timestamps of heart_rate data
+        mrn (string): specifies patient MRN.
+        attending_email (email): specifies patient's attending physician's email.
+        user_age (float): specifies patient's age in years.
+        heart_rate (list): stored heart rate data
+        heart_rate_timestamp (list): associated timestamps of heart_rate data
 
     Returns:
         u.mrn (str): identifies patient. No two patients can have the same MRN.
@@ -222,13 +219,12 @@ def addpatient():
 
 @app.route("/heart_rate/interval_average", methods=["POST"])
 def intervalaverage():
-    """ Calculates average of stored heart rates after a specified time point.
-
+    """
     This function calculates the average of the stored heart rates after a
-     specified time point.
+    specified time point.
 
     Args:
-        patient_id (string): string specifying patient MRN (received through JSON request).
+        patient_id (string): specifies patient MRN (received through JSON request).
         heart_rate_average_since (string): time string to specify time point for interval average.
 
     Returns:
@@ -256,8 +252,7 @@ def intervalaverage():
     return ans.format(data_in["heart_rate_average_since"], avg)
 
 def email(from_email_string, to_email_string, subject, content_string):
-    """ Sends email using SendGrid API
-
+    """
     This function utilizes the SendGrid API to send an email.
 
     Args:
@@ -281,8 +276,7 @@ def email(from_email_string, to_email_string, subject, content_string):
     return response.status_code
 
 def recondition(heart_rate_average_since, heart_rate_timestamp, heart_rate):
-    """ reconditions heart rate list for interval average
-
+    """
     This function compares the specified time point to the timestamps of the
     heart rate data and returns a heart rate vector containing data for the
     interval specified.
@@ -300,8 +294,7 @@ def recondition(heart_rate_average_since, heart_rate_timestamp, heart_rate):
     return reconditioned_hr_data
 
 def istachycardic(user_age, hr):
-    """ Determines if patient is tachycardic
-
+    """
     This function determines if a patient of a specified age is tachycardic .
 
     Args:
@@ -344,8 +337,7 @@ def istachycardic(user_age, hr):
     return tachy
 
 def averageHR(hr):
-    """ Calculates average heart rate.
-
+    """
     This function calculates the average of a list.
 
     Args:
