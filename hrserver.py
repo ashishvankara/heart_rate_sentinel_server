@@ -2,11 +2,13 @@ from flask import Flask, jsonify, request
 from pymodm import MongoModel, fields, connect
 from datetime import datetime
 import sendgrid
+import os
 import numpy as np
 from sendgrid.helpers.mail import *
 import logging
 logging.basicConfig(filename='log.txt', level=logging.DEBUG, filemode='w')
 connect("mongodb://av135:Dukebm3^@ds039778.mlab.com:39778/hr_sentinel")
+
 
 class User(MongoModel):
     """
@@ -32,6 +34,7 @@ class User(MongoModel):
 
 app = Flask(__name__)
 
+
 @app.route("/", methods=["GET"])
 def greeting():
     """ Welcomes user to heart rate sentinel
@@ -44,9 +47,6 @@ def greeting():
 
     welcome = "Welcome to the heart rate sentinel"
     return welcome
-
-
-
 
 
 @app.route("/data/<patient_id>", methods=["GET"])
@@ -69,6 +69,7 @@ def getData(patient_id):
                   "heart_rate_timestamp": u.heart_rate_timestamp
                   }
     return jsonify(dict_array)
+
 
 @app.route("/status/<patient_id>", methods=["GET"])
 def getStatus(patient_id):
@@ -99,6 +100,7 @@ def getStatus(patient_id):
         logging.debug('No tachycardia.')
         return ans
 
+
 @app.route("/heart_rate/<patient_id>", methods=["GET"])
 def getHR(patient_id):
     """
@@ -116,6 +118,7 @@ def getHR(patient_id):
     total_stored_hr_data = u.heart_rate[0:]
     logging.debug('The total heart rate data:{}'.format(total_stored_hr_data))
     return str(total_stored_hr_data)
+
 
 @app.route("/heart_rate/average/<patient_id>", methods=["GET"])
 def getavgHR(patient_id):
@@ -136,6 +139,7 @@ def getavgHR(patient_id):
     ans ="The patient's average heart rate over all stored measurements is {}."
     logging.debug(ans.format(avghr))
     return ans.format(avghr)
+
 
 @app.route("/heart_rate", methods=["POST"])
 def addHr():
@@ -175,6 +179,7 @@ def addHr():
     u.save()
     status = getStatus(data_in["patient_id"]) # Runs status function to warn if tachycardia is detected
     return status
+
 
 @app.route("/new_patient", methods=["POST"])
 def addpatient():
@@ -217,6 +222,7 @@ def addpatient():
     u.save()
     return u.mrn
 
+
 @app.route("/heart_rate/interval_average", methods=["POST"])
 def intervalaverage():
     """
@@ -251,6 +257,7 @@ def intervalaverage():
     logging.debug('Interval average was calculated to be {}.'.format(avg))
     return ans.format(data_in["heart_rate_average_since"], avg)
 
+
 def email(from_email_string, to_email_string, subject, content_string):
     """
     This function utilizes the SendGrid API to send an email.
@@ -264,9 +271,7 @@ def email(from_email_string, to_email_string, subject, content_string):
     Returns:
         response.status_code (int): code to inform user of email status
     """
-
-    key = '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'
-    sg = sendgrid.SendGridAPIClient(apikey=key)
+    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('MY_KEY'))
     from_email = Email(from_email_string)
     to_email = Email(to_email_string)
     content = Content("text/plain", content_string)
@@ -274,6 +279,7 @@ def email(from_email_string, to_email_string, subject, content_string):
     response = sg.client.mail.send.post(request_body=mail.get())
     logging.debug('Email status code: {}'.format(response.status_code))
     return response.status_code
+
 
 def recondition(heart_rate_average_since, heart_rate_timestamp, heart_rate):
     """
@@ -292,6 +298,7 @@ def recondition(heart_rate_average_since, heart_rate_timestamp, heart_rate):
     relevant_indices = (heart_rate_timestamp >= heart_rate_average_since).nonzero()
     reconditioned_hr_data = heart_rate[relevant_indices].tolist()
     return reconditioned_hr_data
+
 
 def istachycardic(user_age, hr):
     """
@@ -336,6 +343,7 @@ def istachycardic(user_age, hr):
         tachy = False
     return tachy
 
+
 def averageHR(hr):
     """
     This function calculates the average of a list.
@@ -349,6 +357,7 @@ def averageHR(hr):
 
     avg = sum(hr)/float(len(hr))
     return avg
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
