@@ -5,8 +5,7 @@ import sendgrid
 import numpy as np
 from sendgrid.helpers.mail import *
 import logging
-logging.basicConfig(filename='log.txt', level=logging.DEBUG)
-
+logging.basicConfig(filename='log.txt', level=logging.DEBUG, filemode='w')
 connect("mongodb://av135:Dukebm3^@ds039778.mlab.com:39778/hr_sentinel")
 
 class User(MongoModel):
@@ -206,10 +205,10 @@ def addpatient():
     for key in required_patient_keys:
         if key not in data_in.keys():
             raise ValueError("Key '{}' is missing to initialize patient in sentinel".format(key))
-    for i in User.objects.raw():
-        if i.mrn == data_in["patient_id"]:
-            raise ValueError('This patient is already in the database. Please'
-                             'proceed to /api/heart_rate to post heart rate data')
+#   for i in User.objects.raw({"_id": data_in["patient_id"]}):
+#       if i.mrn == data_in["patient_id"]:
+#           raise ValueError('This patient is already in the database. Please'
+#                            'proceed to /api/heart_rate to post heart rate data')
 
     u = User(mrn=data_in["patient_id"],
              attending_email=data_in["attending_email"],
@@ -355,12 +354,9 @@ def averageHR(hr):
     Returns:
         avg (float): average heart rate
     """
-    
+
     avg = sum(hr)/float(len(hr))
     return avg
-
-
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
