@@ -8,9 +8,21 @@ from sendgrid.helpers.mail import *
 connect("mongodb://av135:Dukebm3^@ds039778.mlab.com:39778/hr_sentinel")
 
 class User(MongoModel):
+    """ This User class initializes the MongoDB database attributes
+
+    This class specifies the stored data fields for the heart rate sentinel database.
+    Attributes:
+        mrn (string): string specifying patient MRN.
+        attending_email (Email): Specifies patient's attending physician's email.
+        user_age (float): Specifies patient's age in years.
+        heart_rate (list): Contains all the stored heart rate data
+        heart_rate_timestamp (list): Contains associated timestamps of heart_rate data
+
+    """
+
     mrn = fields.CharField(primary_key=True)
     attending_email = fields.EmailField()
-    user_age = fields.IntegerField()
+    user_age = fields.FloatField()
     heart_rate = fields.ListField()
     heart_rate_timestamp = fields.ListField()
 
@@ -19,11 +31,15 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def greeting():
+    """ Welcomes user to heart rate sentinel
+
+    This function returns the following string: "Welcome to the heart rate sentinel"
+    Returns:
+        welcome (dict): Dictionary of stored information for specified patient
     """
-    Returns the string "Welcome to the heart rate sentinel"
-     to the caller
-    """
-    return "Welcome to the heart rate sentinel"
+    welcome = "Welcome to the heart rate sentinel"
+    return welcome
+
 
 
 
