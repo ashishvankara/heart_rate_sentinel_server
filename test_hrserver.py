@@ -9,14 +9,16 @@ import pytest
     (20, 90, False)
 ])
 def test_istachycardic(user_age, hr, expected):
-    """ Tests tachycardic
+    """ Tests istachycardic()
+
     """
     from hrserver import istachycardic
     a = istachycardic(user_age, hr)
     assert a == expected
 
 def test_averageHR():
-    """ Tests avgHR calculation
+    """ Tests averageHR() calculations
+
     """
     from hrserver import averageHR
     import numpy as np
@@ -25,6 +27,9 @@ def test_averageHR():
     assert pytest.approx(calculated_avg) == a.mean()
 
 def test_recondition():
+    """ Tests recondition()
+
+    """
     import numpy as np
     from datetime import datetime, timedelta
     from hrserver import recondition
