@@ -18,10 +18,10 @@ class User(MongoModel):
 
     Attributes:
         mrn (string): specifies patient MRN.
-        attending_email (email): specifies patient's attending physician's email.
+        attending_email (email): specifies patient's physician's email.
         user_age (float): specifies patient's age in years.
         heart_rate (list): contains all the stored heart rate data
-        heart_rate_timestamp (list): contains associated timestamps of heart_rate data
+        heart_rate_timestamp (list): associated timestamps of heart_rate data
 
     """
 
@@ -39,7 +39,8 @@ app = Flask(__name__)
 def greeting():
     """ Welcomes user to heart rate sentinel
 
-    This function returns the following string: "Welcome to the heart rate sentinel"
+    This function returns the following string: "Welcome to the heart rate
+    sentinel"
 
     Returns:
         welcome (string): "Welcome to the heart rate sentinel"
@@ -52,13 +53,14 @@ def greeting():
 @app.route("/data/<patient_id>", methods=["GET"])
 def getData(patient_id):
     """
-    This function returns all the stored information for a patient as a JSON dictionary
+    This function returns all the stored information for a patient
+    as a JSON dictionary
 
     Args:
         patient_id (string): string specifying patient MRN.
 
     Returns:
-        dict_array (dict): dictionary of stored information for specified patient
+        dict_array (dict): stored information for specified patient
     """
 
     u = User.objects.raw({"_id": patient_id}).first()
@@ -74,8 +76,10 @@ def getData(patient_id):
 @app.route("/status/<patient_id>", methods=["GET"])
 def getStatus(patient_id):
     """
-    This function returns whether the specified patient is currently tachycardic based on previously available
-    heart rate data, as well as the timestamp of the most recent heart rate. Furthermore, it also sends an
+    This function returns whether the specified patient is currently
+    tachycardic based on previously available
+    heart rate data, as well as the timestamp of the most recent
+    heart rate. Furthermore, it also sends an
     email to the attending physician if the patient is tachycardic.
 
     Args:
@@ -92,11 +96,13 @@ def getStatus(patient_id):
     ansraw = "Patient is {} His/Her heart rate is {} based on data from {}"
     if tachy:
         ans = ansraw.format("tachycardic!", most_recent_hr, most_recent_time)
-        a = email('av135_hr_sentinel@duke.edu', u.attending_email, 'Urgent patient #{}!'.format(u.mrn), ans)
+        a = email('av135_hr_sentinel@duke.edu', u.attending_email,
+                  'Urgent patient #{}!'.format(u.mrn), ans)
         logging.debug('Tachycardia!')
         return ans
     else:
-        ans = ansraw.format("not tachycardic.", most_recent_hr, most_recent_time)
+        ans = ansraw.format("not tachycardic.",
+                            most_recent_hr, most_recent_time)
         logging.debug('No tachycardia.')
         return ans
 
@@ -136,7 +142,7 @@ def getavgHR(patient_id):
     u = User.objects.raw({"_id": patient_id}).first()
     total_stored_hr_data = u.heart_rate[0:]
     avghr = averageHR(total_stored_hr_data)
-    ans ="The patient's average heart rate over all stored measurements is {}."
+    ans = "The patient's average heart rate over all stored measurements is {}"
     logging.debug(ans.format(avghr))
     return ans.format(avghr)
 
@@ -145,18 +151,20 @@ def getavgHR(patient_id):
 def addHr():
     """ Posts heart rate data to database and checks for tachycardia
 
-    This function receives a JSON request and posts the new data to the specified patient's
-    heart rate data. It also checks for tachycardia, and emails the physician if
-    tachycardia is detected. The function returns a string explaining the most recent
-    heart rate status of the patient. Furthermore, it removes the initialized heart rate value
-    (0) and associated time stamp.
+    This function receives a JSON request and posts the new data
+    to the specified patient's heart rate data.
+    It also checks for tachycardia, and emails the physician if
+    tachycardia is detected. The function returns a string
+    explaining the most recent heart rate status of the patient.
+    Furthermore, it removes the initialized heart rate value(0)
+    and associated time stamp.
 
 
     Args:
-        patient_id (string): specifies patient MRN (received through JSON request).
+        patient_id (string): patient MRN (received through JSON request).
 
     Returns:
-        status (str): sentence that informs user of patients recent heart rate status
+        status (str): sentence regarding recent heart rate status
     """
 
     data_in = request.get_json()
@@ -166,7 +174,9 @@ def addHr():
     ]
     for key in required_hr_keys:
         if key not in data_in.keys():
-            raise ValueError("Key '{}' is missing to post patient heart rate data in sentinel".format(key))
+            raise ValueError(
+                "Key '{}' is missing to post"
+                " patient heart rate data in sentinel".format(key))
 
     u = User.objects.raw({"_id": data_in["patient_id"]}).first()
     u.heart_rate.append(data_in["heart_rate"])
@@ -175,20 +185,22 @@ def addHr():
     if u.heart_rate[0] == 0:   # Removes initialization value
         u.heart_rate.pop(0)
         u.heart_rate_timestamp.pop(0)
-    logging.debug('Heart rate data was successfully saved for patient #{}'.format(u.mrn))
+    logging.debug('Heart rate data was'
+                  ' successfully saved for patient #{}'.format(u.mrn))
     u.save()
-    status = getStatus(data_in["patient_id"]) # Runs status function to warn if tachycardia is detected
+    status = getStatus(data_in["patient_id"])
     return status
 
 
 @app.route("/new_patient", methods=["POST"])
 def addpatient():
     """
-    This function receives a JSON request and initializes the database variables for the new patient.
+    This function receives a JSON request and initializes
+    the database variables for the new patient.
 
     Args:
         mrn (string): specifies patient MRN.
-        attending_email (email): specifies patient's attending physician's email.
+        attending_email (email): specifies patient's physician's email.
         user_age (float): specifies patient's age in years.
         heart_rate (list): stored heart rate data
         heart_rate_timestamp (list): associated timestamps of heart_rate data
@@ -206,12 +218,8 @@ def addpatient():
     ]
     for key in required_patient_keys:
         if key not in data_in.keys():
-            raise ValueError("Key '{}' is missing to initialize patient in sentinel".format(key))
-#   for i in User.objects.raw({"_id": data_in["patient_id"]}):
-#       if i.mrn == data_in["patient_id"]:
-#           raise ValueError('This patient is already in the database. Please'
-#                            'proceed to /api/heart_rate to post heart rate data')
-
+            raise ValueError("Key '{}' is missing"
+                             " to initialize patient in sentinel".format(key))
     u = User(mrn=data_in["patient_id"],
              attending_email=data_in["attending_email"],
              user_age=data_in["user_age"],
@@ -230,8 +238,8 @@ def intervalaverage():
     specified time point.
 
     Args:
-        patient_id (string): specifies patient MRN (received through JSON request).
-        heart_rate_average_since (string): time string to specify time point for interval average.
+        patient_id (string): patient MRN (received through JSON request).
+        heart_rate_average_since (string): time point for interval average.
 
     Returns:
         u.mrn (str): identifies patient. No two patients can have the same MRN.
@@ -244,16 +252,20 @@ def intervalaverage():
     ]
     for key in required_patient_keys:
         if key not in data_in.keys():
-            raise ValueError("Key '{}' is missing to initialize patient in sentinel".format(key))
+            raise ValueError("Key '{}' is missing to"
+                             " initialize patient in sentinel".format(key))
 
     u = User.objects.raw({"_id": data_in["patient_id"]}).first()
-    hr_since = datetime.strptime(data_in["heart_rate_average_since"], "%Y-%m-%dT%H:%M:%S.%f")# includes data at specified time point
-    hr_time_stamp_datetime = [datetime.strptime(i, "%Y-%m-%dT%H:%M:%S.%f") for i in u.heart_rate_timestamp]
+    hr_since = datetime.strptime(data_in["heart_rate_average_since"],
+                                 "%Y-%m-%dT%H:%M:%S.%f")
+    hr_time_stamp_datetime = \
+        [datetime.strptime(i, "%Y-%m-%dT%H:%M:%S.%f"
+                           ) for i in u.heart_rate_timestamp]
     hr_time_stamp_array = np.asarray(hr_time_stamp_datetime)
     hr_array = np.asarray(u.heart_rate)
     adjusted_hr_data = recondition(hr_since, hr_time_stamp_array, hr_array)
     avg = averageHR(adjusted_hr_data)
-    ans ="The patient's average heart since {} is {}."
+    ans = "The patient's average heart since {} is {}."
     logging.debug('Interval average was calculated to be {}.'.format(avg))
     return ans.format(data_in["heart_rate_average_since"], avg)
 
@@ -263,8 +275,10 @@ def email(from_email_string, to_email_string, subject, content_string):
     This function utilizes the SendGrid API to send an email.
 
     Args:
-        from_email_string (string): specifies the email address the message will be sent from.
-        to_email_string (string): specifies the email address the message will be sent to.
+        from_email_string (string): specifies the email
+         address the message will be sent from.
+        to_email_string (string): specifies the email
+         address the message will be sent to.
         subject (string): specifies subject of the email
         content_string (string): specifies the content of the email
 
@@ -289,13 +303,16 @@ def recondition(heart_rate_average_since, heart_rate_timestamp, heart_rate):
 
     Args:
         heart_rate (array): numpy array of heart rate data.
-        heart_rate_average_since (datetime): datetime object for specified interval
-        heart_rate_timestamp (array): numpy array of datetimes corresponding to heart rate data
+        heart_rate_average_since (datetime): datetime object for
+         specified interval
+        heart_rate_timestamp (array): numpy array of datetimes
+         corresponding to heart rate data
 
     Returns:
         reconditioned_hr_data (list): list of hr data in specified interval
     """
-    relevant_indices = (heart_rate_timestamp >= heart_rate_average_since).nonzero()
+    relevant_indices = (heart_rate_timestamp >=
+                        heart_rate_average_since).nonzero()
     reconditioned_hr_data = heart_rate[relevant_indices].tolist()
     return reconditioned_hr_data
 

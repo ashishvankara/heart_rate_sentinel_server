@@ -5,10 +5,11 @@ hello = requests.get("http://127.0.0.1:5000/")
 
 # Initialize Patient
 r1 = requests.post(
-    "http://127.0.0.1:5000/new_patient", json={"patient_id": "123",
-                         "attending_email": 'av135@duke.edu',
-                         "user_age": 2}
-                   )
+    "http://127.0.0.1:5000/new_patient",
+    json={"patient_id": "123",
+          "attending_email": 'av135@duke.edu',
+          "user_age": 2}
+)
 
 # Post heart rate (includes status check)
 r3 = requests.post(
@@ -46,6 +47,6 @@ print(r.text)
 # Get interval hr average(Can change between a and b time points)
 
 rsince = requests.post(
-    "http://127.0.0.1:5000/heart_rate/interval_average", json={"patient_id": "123",
-                                                               "heart_rate_average_since": b.isoformat()})
+    "http://127.0.0.1:5000/heart_rate/interval_average",
+    json={"patient_id": "123", "heart_rate_average_since": b.isoformat()})
 print(rsince.text)
